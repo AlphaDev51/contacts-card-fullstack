@@ -6,6 +6,7 @@ export const useContactStore = defineStore("contact", () => {
   const contacts = ref([]);
   const toastMessage = ref(null);
   const loading = ref(false); // Pour gérer l'état de chargement
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   // actions
   async function getContacts() {
@@ -21,7 +22,7 @@ export const useContactStore = defineStore("contact", () => {
 
     loading.value = true;
     try {
-      const response = await fetch("http://localhost:8000/contacts", {
+      const response = await fetch(`${apiUrl}/contacts`, {
         headers: {
           Authorization: `Bearer ${authStore.token}`, // ✅ Envoie le token
           "Content-Type": "application/json",
@@ -57,7 +58,7 @@ export const useContactStore = defineStore("contact", () => {
       return;
     }
 
-    const response = await fetch("http://localhost:8000/contacts", {
+    const response = await fetch(`${apiUrl}/contacts`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${authStore.token}`,
@@ -84,7 +85,7 @@ export const useContactStore = defineStore("contact", () => {
       return;
     }
 
-    const response = await fetch(`http://localhost:8000/contacts/${id}`, {
+    const response = await fetch(`${apiUrl}/contacts/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${authStore.token}`,
@@ -109,7 +110,7 @@ export const useContactStore = defineStore("contact", () => {
       return;
     }
 
-    const response = await fetch(`http://localhost:8000/contacts/${id}`, {
+    const response = await fetch(`${apiUrl}/contacts/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${authStore.token}`,
@@ -153,7 +154,7 @@ export const useContactStore = defineStore("contact", () => {
     const contactToUpdate = { ...contacts.value[index] };
     // contactToUpdate.is_favorite = newFavoriteStatus;
     try {
-      const response = await fetch(`http://localhost:8000/contacts/${id}`, {
+      const response = await fetch(`${apiUrl}/contacts/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${authStore.token}`,

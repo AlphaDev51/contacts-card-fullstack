@@ -7,7 +7,7 @@ export const useStoreAuth = defineStore(
     const currentUser = ref(null);
     const token = ref("");
     const toastMessage = ref(null);
-
+    const apiUrl = import.meta.env.VITE_API_URL;
     const isAuthenticated = computed(() => {
       return !!currentUser.value || !!token.value;
     });
@@ -20,7 +20,7 @@ export const useStoreAuth = defineStore(
     };
     // actions
     async function register(name, email, password) {
-      const response = await fetch("http://localhost:8000/auth/register", {
+      const response = await fetch(`${apiUrl}/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export const useStoreAuth = defineStore(
     async function login(email, password) {
       console.log("Tentative de login pour:", email);
 
-      const response = await fetch("http://localhost:8000/auth/login", {
+      const response = await fetch(`${apiUrl}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -55,7 +55,7 @@ export const useStoreAuth = defineStore(
         localStorage.setItem("token", data.access_token);
 
         // Appelle /auth/me pour récupérer les infos complètes de l'utilisateur
-        const userResponse = await fetch("http://localhost:8000/auth/me", {
+        const userResponse = await fetch(`${apiUrl}/auth/me`, {
           headers: {
             Authorization: `Bearer ${token.value}`, // Envoie le token reçu
             "Content-Type": "application/json",
@@ -111,11 +111,11 @@ export const useStoreAuth = defineStore(
     };
   },
   {
-    // ✅ Ajoute cette configuration
+ 
     persist: {
       key: "token", // Nom de la clé dans localStorage
-      storage: localStorage, // Où le stocker
-      // paths: ['token', 'currentUser'] // Optionnel : ne sauvegarder que ces champs
+      storage: localStorage, /
+      // paths: ['token', 'currentUser']
     },
   }
 );
