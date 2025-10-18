@@ -15,7 +15,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://carnet-frontend.onrender.com"],  # 👈 L'URL de ton frontend
+    allow_origins=["http://localhost:5173", "https://contacts-card.onrender.com"],  # 👈 L'URL de ton frontend
     allow_credentials=True,
     allow_methods=["*"],  # 👈 Autorise toutes les méthodes (GET, POST, etc.)
     # 👈 Autorise tous les headers (y compris Authorization)
