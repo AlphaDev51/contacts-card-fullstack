@@ -114,7 +114,7 @@ export const useStoreAuth = defineStore(
  
     persist: {
       key: "token", // Nom de la clé dans localStorage
-      storage: localStorage, /
+      storage: localStorage, 
       // paths: ['token', 'currentUser']
     },
   }
